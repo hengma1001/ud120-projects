@@ -28,7 +28,8 @@ features_train, features_test, labels_train, labels_test = preprocess()
 ### your code goes here ###
 from sklearn.svm import SVC 
 
-C_list = [10., 100., 1000., 10000] 
+# C_list = [10., 100., 1000., 10000] 
+C_list = [10000.] 
 for C in C_list: 
     clf = SVC(C=C, kernel='rbf') 
     
@@ -47,4 +48,10 @@ for C in C_list:
     print "Accuracy for C=%f: " % C, acc # clf.score(features_test, labels_test), acc  
 #########################################################
 
+predict_list = [10, 26, 50] 
 
+for i in predict_list: 
+    print "The prediction for element %d is %d" % (i, pred[i]) 
+
+# import numpy as np 
+print "Chris had %d emails identified in the test set" % (int(sum(pred==1))) 
