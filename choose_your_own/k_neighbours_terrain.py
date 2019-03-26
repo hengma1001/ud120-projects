@@ -17,14 +17,15 @@ bumpy_slow = [features_train[ii][1] for ii in range(0, len(features_train)) if l
 
 
 #### initial visualization
-plt.xlim(0.0, 1.0)
-plt.ylim(0.0, 1.0)
-plt.scatter(bumpy_fast, grade_fast, color = "b", label="fast")
-plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
-plt.legend()
-plt.xlabel("bumpiness")
-plt.ylabel("grade")
-plt.show()
+# plt.xlim(0.0, 1.0)
+# plt.ylim(0.0, 1.0)
+# plt.scatter(bumpy_fast, grade_fast, color = "b", label="fast")
+# plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
+# plt.legend()
+# plt.xlabel("bumpiness")
+# plt.ylabel("grade")
+# plt.show()
+
 ################################################################################
 
 
@@ -32,19 +33,23 @@ plt.show()
 ### visualization code (prettyPicture) to show you the decision boundary
 from sklearn.neighbors import KNeighborsClassifier 
 from time import time 
-clf = KNeighborsClassifier() 
 
-t_train = time()
-clf.fit(features_train, labels_train) 
-print "Training time: %f s." % round(time() - t_train, 3) 
+n_neighbours_list = [8] 
+for n_neighbors in n_neighbours_list: 
+    print "For system using n_neighbors = %d" % n_neighbors 
+    clf = KNeighborsClassifier(n_neighbors=n_neighbors) 
 
-t_pred = time() 
-pred = clf.predict(features_test) 
-print "Predicting time: %f s." % round(time() - t_pred, 3) 
-
-from sklearn.metrics import accuracy_score 
-acc = accuracy_score(pred, labels_test) 
-print "Accuracy: %f. " % acc 
+    t_train = time()
+    clf.fit(features_train, labels_train) 
+#     print "Training time: %f s." % round(time() - t_train, 3) 
+    
+    t_pred = time() 
+    pred = clf.predict(features_test) 
+#     print "Predicting time: %f s." % round(time() - t_pred, 3) 
+    
+    from sklearn.metrics import accuracy_score 
+    acc = accuracy_score(pred, labels_test) 
+    print "Accuracy: %f. " % acc 
 
 
 try:
