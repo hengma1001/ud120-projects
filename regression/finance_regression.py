@@ -19,9 +19,10 @@ sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 dictionary = pickle.load( open("../final_project/final_project_dataset_modified.pkl", "r") )
 
+# print dictionary['METTS MARK'].keys() 
 ### list the features you want to look at--first item in the 
 ### list will be the "target" feature
-features_list = ["bonus", "salary"]
+features_list = ["bonus", 'salary'] # 'long_term_incentive']
 data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
 target, features = targetFeatureSplit( data )
 
@@ -67,6 +68,10 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+reg1 = LinearRegression() 
+reg1.fit(feature_test, target_test)
+print "Regression to test data slope: %.5f " % reg1.coef_
+plt.plot(feature_train, reg1.predict(feature_train), color="b") 
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
