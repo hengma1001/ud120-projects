@@ -14,7 +14,12 @@ def outlierCleaner(predictions, ages, net_worths):
     cleaned_data = []
 
     ### your code goes here
-
+    errors = abs(net_worths - predictions)  
+    n_count = 0 
+    for error, age, net_worth in sorted(zip(errors, ages, net_worths)): 
+        if n_count < 0.9 * len(ages): 
+            cleaned_data.append((age, net_worth, error)) 
+        n_count += 1 
     
     return cleaned_data
 
